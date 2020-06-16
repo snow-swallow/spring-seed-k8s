@@ -1,0 +1,33 @@
+{
+  "apiVersion": "v1",
+  "kind": "Service",
+  "metadata": {
+    "name": "xyz-seed-service",
+    "namespace": "xyz-dev",
+    "labels": {
+      "app": "xyz-seed"
+    }
+  },
+  "spec": {
+    "type": "ClusterIP",
+    "selector": {
+      "app": "xyz-seed"
+    },
+    "ports": [
+      {
+        "name": "http",
+        "protocol": "TCP",
+
+        "port": 9041,
+
+        "targetPort": 9041
+      },
+      {
+        "name": "https",
+        "protocol": "TCP",
+        "port": 8443,
+        "targetPort": 8443
+      }
+    ]
+  }
+}

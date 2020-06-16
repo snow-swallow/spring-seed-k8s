@@ -1,0 +1,51 @@
+{
+  "apiVersion": "extensions/v1beta1",
+  "kind": "Deployment",
+  "metadata": {
+    "name": "xyz-seed-deployment",
+    "namespace": "xyz-dev"
+  },
+  "spec": {
+    "minReadySeconds": 5,
+    "replicas": 1,
+    "revisionHistoryLimit": 10,
+    "selector": {
+      "matchLabels": {
+        "app": "xyz-seed"
+      }
+    },
+    "strategy": {
+      "rollingUpdate": {
+        "maxSurge": 2,
+        "maxUnavailable": 1
+      },
+      "type": "RollingUpdate"
+    },
+    "template": {
+      "metadata": {
+        "labels": {
+          "app": "xyz-seed"
+        }
+      },
+      "spec": {
+        "containers": [
+          {
+            "image": "gbs-cvms-team-snapshot-docker-local.artifactory.swg-devops.com/cv-ms-search:<BUILD_TAG>",
+            "imagePullPolicy": "Always",
+            "name": "xyz-seed",
+            "ports": [
+              {
+                "containerPort": 9000
+              }
+            ]
+          }
+        ],
+        "imagePullSecrets": [
+          {
+            "name": "xyzdev"
+          }
+        ]
+      }
+    }
+  }
+}
