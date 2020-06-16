@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+  <property name="APP_NAME" value="seed"/>
+  <contextName>${APP_NAME}</contextName>
+  
+  <springProperty scope="context" name="ACTIVE_PROFILE" source="spring.profiles.active"/>
+  
+  <appender name="jsonAppender" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+  </appender>
+  <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [${APP_NAME}] [%thread] %-5level %logger{50} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <springProfile name="local">
+    <root level="INFO">
+      <appender-ref ref="consoleAppender" />
+    </root>
+  </springProfile>
+  <springProfile name="dev">
+    <root level="INFO">
+      <appender-ref ref="jsonAppender" />
+    </root>
+  </springProfile>
+  <springProfile name="qa">
+    <root level="INFO">
+      <appender-ref ref="jsonAppender" />
+    </root>
+  </springProfile>
+  <springProfile name="prod">
+    <root level="INFO">
+      <appender-ref ref="jsonAppender" />
+    </root>
+  </springProfile>
+  <!-- <root level="INFO">
+    <appender-ref ref="consoleAppender" />
+    <appender-ref ref="jsonAppender"/>
+  </root> -->
+
+</configuration>

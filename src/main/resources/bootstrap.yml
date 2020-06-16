@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: xyz-seed-service
+#  cloud:
+#    kubernetes:
+#      reload:
+#        enabled: true
+
+#management:
+#  endpoint:
+#    restart:
+#      enabled: true
